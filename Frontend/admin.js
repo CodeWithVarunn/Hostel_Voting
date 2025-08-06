@@ -1,108 +1,108 @@
-const SUPABASE_URL = 'https://haxkhjxbozglmziagdiv.supabase.co';
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhheGtoanhib3pnbG16aWFnZGl2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQzMzY5NjgsImV4cCI6MjA2OTkxMjk2OH0.AdK9WZ8hr6_hX3W-AO5h9pLZKgoLxQ6Zd4MYC-Qvdy0';
-const supabase = window.supabase.createClient("https://haxkhjxbozglmziagdiv.supabase.co", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhheGtoanhib3pnbG16aWFnZGl2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQzMzY5NjgsImV4cCI6MjA2OTkxMjk2OH0.AdK9WZ8hr6_hX3W-AO5h9pLZKgoLxQ6Zd4MYC-Qvdy0");
+// script.js (Corrected and Complete)
 
-// ### UPDATED: Variable to store the token ###
-let authToken = null;
+document.getElementById("sendOtpBtn").onclick = async () => {
+  const form = document.forms["voteForm"];
+  const email = form["email"].value;
+  const sendOtpBtn = document.getElementById("sendOtpBtn"); // Get the button
 
-document.addEventListener('DOMContentLoaded', () => {
-    const loginForm = document.getElementById('loginForm');
-    const adminContent = document.getElementById('adminContent');
-    const adminLogin = document.getElementById('adminLogin');
+  console.log("[DEBUG] Send OTP clicked with email:", email);
 
-    loginForm.onsubmit = async (e) => {
-        e.preventDefault();
-        const password = document.getElementById('adminPassword').value;
-        const loginError = document.getElementById('loginError');
+  if (!email.endsWith("@dtu.ac.in")) {
+    alert("Please enter a valid DTU email ID.");
+    return;
+  }
 
-        try {
-            const response = await fetch('http://localhost:3000/admin-login', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ password }),
-            });
+  // Disable button and show loading text
+  sendOtpBtn.disabled = true;
+  sendOtpBtn.textContent = "Sending...";
 
-            const data = await response.json();
-            if (response.ok) {
-                // ### UPDATED: Save the token from the response ###
-                authToken = data.token;
-                adminLogin.style.display = 'none';
-                adminContent.style.display = 'block';
-                await fetchVotes();
-                listenForRealtimeVotes();
-            } else {
-                loginError.textContent = data.message || "Login failed.";
-            }
-        } catch (error) {
-            console.error('Login error:', error);
-            loginError.textContent = "An error occurred. Please try again.";
-        }
-    };
+  try {
+    // FIX: Use relative URL
+    const res = await fetch("/send-otp", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email }),
+    });
 
-    // This function is no longer needed as we are not using persistent cookies
-    // checkInitialAuth();
-});
+    const data = await res.json();
+    console.log("[DEBUG] Response from /send-otp:", data);
 
-
-async function fetchVotes() {
-    // ### UPDATED: Check if we have a token before fetching ###
-    if (!authToken) {
-        console.error("Authentication token not found.");
-        return;
+    if (res.ok) {
+      alert("OTP sent to your DTU email.");
+      document.getElementById("otpSection").style.display = "block";
+    } else {
+      alert(data.message);
     }
+  } catch (err) {
+    console.error("Error sending OTP:", err);
+    alert("Server error. Try again.");
+  } finally {
+    // Re-enable button and restore original text
+    sendOtpBtn.disabled = false;
+    sendOtpBtn.textContent = "Send OTP";
+  }
+};
 
-    try {
-        const response = await fetch('http://localhost:3000/admin-votes', {
-            headers: {
-                // ### UPDATED: Manually add the Authorization header ###
-                'Authorization': `Bearer ${authToken}`
-            }
-        });
+document.getElementById("voteForm").onsubmit = async (e) => {
+  e.preventDefault();
 
-        if (!response.ok) {
-            throw new Error('Failed to fetch votes');
-        }
+  const form = document.forms["voteForm"];
+  const submitBtn = form.querySelector('button[type="submit"]'); // Get the button
+  const name = form["name"].value;
+  const email = form["email"].value;
+  const room = form["room"].value;
+  const otp = form["otp"].value;
 
-        const resultsByPosition = await response.json();
-        await displayVotes(resultsByPosition);
-    } catch (error) {
-        console.error('Error fetching votes:', error);
-        const votesContainer = document.getElementById('votesContainer');
-        votesContainer.innerHTML = '<p style="color:red;">Failed to fetch votes.</p>';
+  const ballot = {
+    "President": form["president"].value,
+    "Vice President": form["vice-president"].value,
+    "General Secretary": form["general-secretary"].value,
+    "Cultural and Soft Skill Secretary": form["cultural-secretary"].value,
+    "Hostel Mess Secretary": form["mess-secretary"].value,
+    "Sports Secretary": form["sports-secretary"].value,
+    "Academic and Career Secretary": form["academic-secretary"].value,
+    "Technical Events Secretary": form["technical-secretary"].value,
+    "Environment and Sustainability Secretary": form["environment-secretary"].value,
+    "Social Media, Publicity, and Communication Secretary": form["publicity-secretary"].value,
+  };
+
+  for (const position in ballot) {
+    if (!ballot[position]) {
+      alert(`You must select a candidate for the position: ${position}.`);
+      return;
     }
-}
+  }
 
-function displayVotes(resultsByPosition) {
-    const votesContainer = document.getElementById('votesContainer');
-    votesContainer.innerHTML = '';
-    if (Object.keys(resultsByPosition).length === 0) {
-        votesContainer.innerHTML = '<p>No votes yet.</p>';
-        return;
-    }
-    for (const position in resultsByPosition) {
-        const positionContainer = document.createElement('div');
-        positionContainer.className = 'position-container';
-        const positionTitle = document.createElement('h3');
-        positionTitle.textContent = position;
-        positionContainer.appendChild(positionTitle);
-        const results = resultsByPosition[position];
-        results.sort((a, b) => b.count - a.count);
-        results.forEach(entry => {
-            const voteCard = document.createElement('div');
-            voteCard.className = 'vote-card';
-            voteCard.innerHTML = `<p><strong>Candidate:</strong> ${entry.candidate}</p><p><strong>Votes:</strong> ${entry.count}</p>`;
-            positionContainer.appendChild(voteCard);
-        });
-        votesContainer.appendChild(positionContainer);
-    }
-}
+  const voteData = { name, email, room, otp, ballot };
+  console.log("[DEBUG] Submitting complete ballot:", voteData);
+  
+  submitBtn.disabled = true;
+  submitBtn.textContent = "Submitting...";
 
-function listenForRealtimeVotes() {
-    console.log("Listening for real-time vote updates...");
-    supabase.channel('public:votes')
-        .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'votes' }, payload => {
-            console.log('New vote received!', payload.new);
-            fetchVotes();
-        })
-        .subscribe();
-}
+  try {
+    // FIX: Use relative URL
+    const res = await fetch("/submit-vote", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(voteData),
+    });
+
+    const data = await res.json();
+    console.log("[DEBUG] Response from /submit-vote:", data);
+
+    if (res.ok) {
+      window.location.href = "confirmation.html";
+    } else {
+      const feedback = document.getElementById("feedback");
+      feedback.textContent = data.message;
+      feedback.style.color = "red";
+      submitBtn.disabled = false;
+      submitBtn.textContent = "Submit Vote";
+    }
+  } catch (err) {
+    console.error("Error submitting vote:", err);
+    alert("Submission failed. Try again.");
+    submitBtn.disabled = false;
+    submitBtn.textContent = "Submit Vote";
+  }
+};

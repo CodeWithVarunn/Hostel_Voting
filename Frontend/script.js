@@ -17,7 +17,8 @@ document.getElementById("sendOtpBtn").onclick = async () => {
   sendOtpBtn.textContent = "Sending...";
 
   try {
-    const res = await fetch("http://localhost:3000/send-otp", {
+    // FIX: Use relative URL
+    const res = await fetch("/send-otp", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email }),
@@ -52,7 +53,6 @@ document.getElementById("voteForm").onsubmit = async (e) => {
   const room = form["room"].value;
   const otp = form["otp"].value;
 
-  // ✅ FIX: This object now collects the values from all 10 dropdowns
   const ballot = {
     "President": form["president"].value,
     "Vice President": form["vice-president"].value,
@@ -66,23 +66,22 @@ document.getElementById("voteForm").onsubmit = async (e) => {
     "Social Media, Publicity, and Communication Secretary": form["publicity-secretary"].value,
   };
 
-  // Validation to ensure all fields are selected
   for (const position in ballot) {
     if (!ballot[position]) {
       alert(`You must select a candidate for the position: ${position}.`);
-      return; // Stop the submission if any vote is missing
+      return;
     }
   }
 
   const voteData = { name, email, room, otp, ballot };
   console.log("[DEBUG] Submitting complete ballot:", voteData);
-
-  // Disable button and show loading text
+  
   submitBtn.disabled = true;
   submitBtn.textContent = "Submitting...";
 
   try {
-    const res = await fetch("http://localhost:3000/submit-vote", {
+    // FIX: Use relative URL
+    const res = await fetch("/submit-vote", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(voteData),
@@ -92,10 +91,8 @@ document.getElementById("voteForm").onsubmit = async (e) => {
     console.log("[DEBUG] Response from /submit-vote:", data);
 
     if (res.ok) {
-      // On success, redirect to the confirmation page
       window.location.href = "confirmation.html";
     } else {
-      // If vote fails, show message and re-enable button
       const feedback = document.getElementById("feedback");
       feedback.textContent = data.message;
       feedback.style.color = "red";
@@ -105,7 +102,6 @@ document.getElementById("voteForm").onsubmit = async (e) => {
   } catch (err) {
     console.error("Error submitting vote:", err);
     alert("Submission failed. Try again.");
-    // On error, re-enable button
     submitBtn.disabled = false;
     submitBtn.textContent = "Submit Vote";
   }
