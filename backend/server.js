@@ -132,7 +132,7 @@ app.post("/send-otp", async (req, res) => {
       },
       { onConflict: ["email"] }
     ).select();
-    
+
     debugLog("OTP Stored in Supabase", { data, error });
 
     if (error) {
@@ -176,7 +176,7 @@ app.post("/submit-vote", async (req, res) => {
     if (data.has_voted) {
       return res.status(403).json({ message: "You have already voted." });
     }
-    
+
     const ip = req.headers["x-forwarded-for"] || req.socket.remoteAddress;
     debugLog("Client IP", ip);
 
@@ -184,7 +184,7 @@ app.post("/submit-vote", async (req, res) => {
       .from("votes")
       .select("id")
       .eq("ip", ip);
-      
+
     if (ipError) return res.status(500).json({ message: "Error checking IP address." });
     if (existingVotes.length > 0) return res.status(403).json({ message: "Vote already submitted from this IP address." });
 
@@ -202,7 +202,7 @@ app.post("/submit-vote", async (req, res) => {
       .update({ has_voted: true })
       .eq("email", email)
       .select();
-    
+
     debugLog("OTP has_voted Updated", { data: updateData, error: updateError });
 
     res.json({ message: "Vote submitted successfully!" });
@@ -239,14 +239,14 @@ app.get("/admin-votes", requireAdminAuth, async (req, res) => {
         resultsByPosition[position][candidate]++;
       }
     }
-    
+
     const formattedResults = {};
     for (const position in resultsByPosition) {
         formattedResults[position] = Object.entries(resultsByPosition[position]).map(
             ([candidate, count]) => ({ candidate, count })
         );
     }
-    
+
     res.json(formattedResults);
   } catch (err) {
     console.error("Admin vote fetch failed:", err);

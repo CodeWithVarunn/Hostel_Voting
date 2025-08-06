@@ -76,7 +76,7 @@ document.getElementById("voteForm").onsubmit = async (e) => {
 
   const voteData = { name, email, room, otp, ballot };
   console.log("[DEBUG] Submitting complete ballot:", voteData);
-  
+
   // Disable button and show loading text
   submitBtn.disabled = true;
   submitBtn.textContent = "Submitting...";

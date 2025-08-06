@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const data = await response.json();
             if (response.ok) {
                 // ### UPDATED: Save the token from the response ###
-                authToken = data.token; 
+                authToken = data.token;
                 adminLogin.style.display = 'none';
                 adminContent.style.display = 'block';
                 await fetchVotes();
@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     // This function is no longer needed as we are not using persistent cookies
-    // checkInitialAuth(); 
+    // checkInitialAuth();
 });
 
 
