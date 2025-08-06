@@ -1,23 +1,17 @@
-// script.js (Corrected and Complete)
-
 document.getElementById("sendOtpBtn").onclick = async () => {
   const form = document.forms["voteForm"];
   const email = form["email"].value;
-  const sendOtpBtn = document.getElementById("sendOtpBtn"); // Get the button
-
-  console.log("[DEBUG] Send OTP clicked with email:", email);
+  const sendOtpBtn = document.getElementById("sendOtpBtn");
 
   if (!email.endsWith("@dtu.ac.in")) {
     alert("Please enter a valid DTU email ID.");
     return;
   }
 
-  // Disable button and show loading text
   sendOtpBtn.disabled = true;
   sendOtpBtn.textContent = "Sending...";
 
   try {
-    // FIX: Use relative URL
     const res = await fetch("/send-otp", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -25,8 +19,6 @@ document.getElementById("sendOtpBtn").onclick = async () => {
     });
 
     const data = await res.json();
-    console.log("[DEBUG] Response from /send-otp:", data);
-
     if (res.ok) {
       alert("OTP sent to your DTU email.");
       document.getElementById("otpSection").style.display = "block";
@@ -37,7 +29,6 @@ document.getElementById("sendOtpBtn").onclick = async () => {
     console.error("Error sending OTP:", err);
     alert("Server error. Try again.");
   } finally {
-    // Re-enable button and restore original text
     sendOtpBtn.disabled = false;
     sendOtpBtn.textContent = "Send OTP";
   }
@@ -47,7 +38,7 @@ document.getElementById("voteForm").onsubmit = async (e) => {
   e.preventDefault();
 
   const form = document.forms["voteForm"];
-  const submitBtn = form.querySelector('button[type="submit"]'); // Get the button
+  const submitBtn = form.querySelector('button[type="submit"]');
   const name = form["name"].value;
   const email = form["email"].value;
   const room = form["room"].value;
@@ -74,25 +65,21 @@ document.getElementById("voteForm").onsubmit = async (e) => {
   }
 
   const voteData = { name, email, room, otp, ballot };
-  console.log("[DEBUG] Submitting complete ballot:", voteData);
   
   submitBtn.disabled = true;
   submitBtn.textContent = "Submitting...";
 
   try {
-    // FIX: Use relative URL
     const res = await fetch("/submit-vote", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(voteData),
     });
 
-    const data = await res.json();
-    console.log("[DEBUG] Response from /submit-vote:", data);
-
     if (res.ok) {
       window.location.href = "confirmation.html";
     } else {
+      const data = await res.json();
       const feedback = document.getElementById("feedback");
       feedback.textContent = data.message;
       feedback.style.color = "red";
