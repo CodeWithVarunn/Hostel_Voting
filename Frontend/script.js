@@ -3,6 +3,7 @@
 document.getElementById("sendOtpBtn").onclick = async () => {
   const form = document.forms["voteForm"];
   const email = form["email"].value;
+  const sendOtpBtn = document.getElementById("sendOtpBtn"); // Get the button
 
   console.log("[DEBUG] Send OTP clicked with email:", email);
 
@@ -10,6 +11,10 @@ document.getElementById("sendOtpBtn").onclick = async () => {
     alert("Please enter a valid DTU email ID.");
     return;
   }
+
+  // Disable button and show loading text
+  sendOtpBtn.disabled = true;
+  sendOtpBtn.textContent = "Sending...";
 
   try {
     const res = await fetch("http://localhost:3000/send-otp", {
@@ -30,6 +35,10 @@ document.getElementById("sendOtpBtn").onclick = async () => {
   } catch (err) {
     console.error("Error sending OTP:", err);
     alert("Server error. Try again.");
+  } finally {
+    // Re-enable button and restore original text
+    sendOtpBtn.disabled = false;
+    sendOtpBtn.textContent = "Send OTP";
   }
 };
 
@@ -37,6 +46,7 @@ document.getElementById("voteForm").onsubmit = async (e) => {
   e.preventDefault();
 
   const form = document.forms["voteForm"];
+  const submitBtn = form.querySelector('button[type="submit"]'); // Get the button
   const name = form["name"].value;
   const email = form["email"].value;
   const room = form["room"].value;
@@ -66,6 +76,10 @@ document.getElementById("voteForm").onsubmit = async (e) => {
 
   const voteData = { name, email, room, otp, ballot };
   console.log("[DEBUG] Submitting complete ballot:", voteData);
+  
+  // Disable button and show loading text
+  submitBtn.disabled = true;
+  submitBtn.textContent = "Submitting...";
 
   try {
     const res = await fetch("http://localhost:3000/submit-vote", {
@@ -77,11 +91,22 @@ document.getElementById("voteForm").onsubmit = async (e) => {
     const data = await res.json();
     console.log("[DEBUG] Response from /submit-vote:", data);
 
-    const feedback = document.getElementById("feedback");
-    feedback.textContent = data.message;
-    feedback.style.color = res.ok ? "green" : "red";
+    if (res.ok) {
+      // On success, redirect to the confirmation page
+      window.location.href = "confirmation.html";
+    } else {
+      // If vote fails, show message and re-enable button
+      const feedback = document.getElementById("feedback");
+      feedback.textContent = data.message;
+      feedback.style.color = "red";
+      submitBtn.disabled = false;
+      submitBtn.textContent = "Submit Vote";
+    }
   } catch (err) {
     console.error("Error submitting vote:", err);
     alert("Submission failed. Try again.");
+    // On error, re-enable button
+    submitBtn.disabled = false;
+    submitBtn.textContent = "Submit Vote";
   }
 };

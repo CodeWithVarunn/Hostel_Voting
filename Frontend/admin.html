@@ -1,24 +1,27 @@
-<!-- admin.html -->
-
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Admin Dashboard - DTU Voting</title>
-    <link rel="stylesheet" href="style.css">
-  </head>
-  <body>
-    
-    <h2>All Submitted Votes</h2>
-    <button id="refreshBtn">Refresh Votes</button>
-    <div id="votesContainer"></div>
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+    <div id="adminLogin" class="admin-login-container">
+        <form id="loginForm">
+            <h2>Admin Login</h2>
+            <input type="password" id="adminPassword" placeholder="Enter Admin Password" required />
+            <button type="submit">Login</button>
+            <p id="loginError" class="login-error"></p>
+        </form>
+    </div>
 
-   <!--  <input type="email" id="adminEmail" placeholder="Enter admin email" />
-    <button id="fetchVotesBtn">Get Vote Summary</button> -->
-
-    <div id="results" style="margin-top: 20px"></div>
+    <div id="adminContent" style="display: none;">
+        <h2>All Submitted Votes (Live)</h2>
+        <div id="votesContainer"></div>
+    </div>
 
     <script src="admin.js"></script>
-  </body>
+</body>
 </html>

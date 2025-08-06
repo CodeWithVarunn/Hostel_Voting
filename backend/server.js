@@ -2,6 +2,8 @@ const express = require("express");
 const cors = require("cors");
 const dotenv = require("dotenv");
 const path = require("path");
+const cookieParser = require("cookie-parser");
+const crypto = require("crypto");
 
 dotenv.config();
 console.log("[DEBUG] EMAIL_USER:", process.env.EMAIL_USER);
@@ -11,9 +13,10 @@ console.log("[DEBUG] SUPABASE_KEY:", process.env.SUPABASE_KEY ? "Loaded ✔️" 
 
 const app = express();
 
-app.use(cors({ origin: '*' }));
+app.use(cors({ origin: 'http://127.0.0.1:5500', credentials: true }));
 app.use(express.json());
-app.use(express.static(path.join(__dirname, "../public")));
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, "../Frontend")));
 
 app.use((req, res, next) => {
   console.log(`[${req.method}] ${req.url} - Body:`, req.body);
@@ -22,15 +25,32 @@ app.use((req, res, next) => {
 
 const PORT = process.env.PORT || 3000;
 
+// ### UPDATED: To use Bearer Token from Authorization header ###
+const requireAdminAuth = (req, res, next) => {
+  const authHeader = req.headers['authorization'];
+  const token = authHeader && authHeader.split(' ')[1]; // Extract token from "Bearer TOKEN"
+
+  if (!token) {
+    return res.status(401).json({ message: "Unauthorized: Missing token." });
+  }
+
+  const passwordHash = crypto
+    .createHash('sha256')
+    .update(process.env.ADMIN_PASSWORD)
+    .digest('hex');
+
+  if (token === passwordHash) {
+    return next(); // Token is valid
+  }
+
+  res.status(401).json({ message: "Unauthorized: Invalid token." });
+};
+
 function debugLog(label, data) {
   console.log(`\n--- DEBUG: ${label} ---`);
   console.log(data);
   console.log("------------------------\n");
 }
-
-app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "../public", "index.html"));
-});
 
 app.listen(PORT, () => {
   console.log(`✅ Server running on http://localhost:${PORT}`);
@@ -52,6 +72,23 @@ transporter.verify((err, success) => {
     console.error("[ERROR] Transporter verification failed:", err);
   } else {
     console.log("[DEBUG] Nodemailer transporter verified:", success);
+  }
+});
+
+// ### UPDATED: To send token in response body instead of cookie ###
+app.post("/admin-login", (req, res) => {
+  const { password } = req.body;
+
+  if (password === process.env.ADMIN_PASSWORD) {
+    const passwordHash = crypto
+      .createHash('sha256')
+      .update(password)
+      .digest('hex');
+
+    // Send the token directly in the JSON response
+    res.json({ message: "Login successful.", token: passwordHash });
+  } else {
+    res.status(401).json({ message: "Invalid password." });
   }
 });
 
@@ -110,11 +147,9 @@ app.post("/send-otp", async (req, res) => {
 });
 
 app.post("/submit-vote", async (req, res) => {
-  // ✅ CHANGE: Destructure 'ballot' instead of 'candidate'
   const { name, email, room, otp, ballot } = req.body;
   debugLog("Vote Submission Request", req.body);
 
-  // ✅ CHANGE: Updated validation to check for a complete ballot
   if (!name || !email || !room || !otp || !ballot || Object.keys(ballot).length < 10) {
     return res.status(400).json({ message: "All fields and all 10 votes are required." });
   }
@@ -153,7 +188,6 @@ app.post("/submit-vote", async (req, res) => {
     if (ipError) return res.status(500).json({ message: "Error checking IP address." });
     if (existingVotes.length > 0) return res.status(403).json({ message: "Vote already submitted from this IP address." });
 
-    // ✅ CHANGE: Insert the 'ballot' object into the database
     const { error: voteError } = await supabase
       .from("votes")
       .insert([{ name, email, room, ip, ballot }]);
@@ -178,23 +212,16 @@ app.post("/submit-vote", async (req, res) => {
   }
 });
 
-app.get("/admin-votes", async (req, res) => {
+app.get("/admin-votes", requireAdminAuth, async (req, res) => {
   try {
-    // ✅ CHANGE: Select the 'ballot' column instead of 'candidate'
     const { data, error } = await supabase
       .from("votes")
       .select("ballot");
-
-    console.log("--- DEBUG: Raw Ballots ---");
-    console.log("DATA:", data);
-    console.log("ERROR:", error);
-    console.log("-------------------------");
 
     if (error) {
       return res.status(500).json({ error: "Failed to fetch vote data.", details: error.message });
     }
 
-    // ✅ CHANGE: New aggregation logic for multiple positions
     const resultsByPosition = {};
 
     for (const vote of data) {
