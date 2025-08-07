@@ -473,3 +473,84 @@ select option:hover {
 select option[disabled] {
     color: #999;
 }
+/* --- Fully Custom Dropdown Styling --- */
+
+/* The main container for our custom dropdown */
+.custom-select-wrapper {
+    position: relative;
+}
+
+/* Hide the original select element completely */
+.custom-select-wrapper select {
+    display: none;
+}
+
+/* This is the fake, styled dropdown box */
+.select-selected {
+    background-color: white;
+    padding: 12px 2.5rem 12px 12px; /* Extra padding for the arrow */
+    border: 1px solid var(--light-gray-color);
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    user-select: none;
+    transition: all 0.3s ease;
+}
+
+/* Style for when the dropdown is active/open */
+.select-selected.select-arrow-active {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+/* The custom arrow icon */
+.select-selected::after {
+    position: absolute;
+    content: "";
+    top: 50%;
+    right: 1rem;
+    width: 0;
+    height: 0;
+    margin-top: -3px;
+    border: 6px solid transparent;
+    border-color: #333 transparent transparent transparent;
+    transition: all 0.3s ease;
+}
+
+/* Point the arrow up when the dropdown is active */
+.select-selected.select-arrow-active::after {
+    transform: rotate(180deg);
+    margin-top: -9px;
+}
+
+/* The container for the list of options */
+.select-items {
+    position: absolute;
+    background-color: white;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 99;
+    border: 1px solid var(--light-gray-color);
+    border-top: none;
+    border-bottom-left-radius: var(--border-radius);
+    border-bottom-right-radius: var(--border-radius);
+    overflow: hidden;
+}
+
+/* Hide the options list by default */
+.select-hide {
+    display: none;
+}
+
+/* Styling for each individual option */
+.select-items div {
+    padding: 12px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+/* Hover effect for the options */
+.select-items div:hover, .same-as-selected {
+    background-color: var(--primary-color);
+    color: white;
+}
