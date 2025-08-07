@@ -29,14 +29,14 @@ body {
 
 /* Header */
 header {
-    background-color: var(--form-background); /* White Background */
+    background-color: var(--background-color); /* CHANGED: Match main background */
     padding: 1.25rem 1rem;
     text-align: center;
-    border-bottom: 1px solid var(--border-color); /* Subtle border */
+    /* REMOVED: border-bottom */
 }
 
 header h1 {
-    color: var(--primary-color); /* Blue Text */
+    color: var(--primary-color);
     font-size: 1.5rem;
 }
 
@@ -173,17 +173,17 @@ hr {
 
 /* Footer */
 footer {
-    background-color: var(--form-background); /* White Background */
-    color: var(--text-color); /* Dark Text */
+    background-color: var(--background-color); /* CHANGED: Match main background */
+    color: var(--text-color);
     text-align: center;
     padding: 1.25rem 1rem;
     width: 100%;
     margin-top: auto;
-    border-top: 1px solid var(--border-color); /* Subtle border */
+    /* REMOVED: border-top */
 }
 
 footer a {
-    color: var(--primary-color); /* Blue Link */
+    color: var(--primary-color);
     text-decoration: none;
     font-weight: 600;
 }
