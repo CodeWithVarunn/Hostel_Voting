@@ -108,7 +108,8 @@ app.post("/send-otp", async (req, res) => {
     from: `"DTU Hostel Voting" <${process.env.EMAIL_USER}>`,
     to: email,
     subject: "Your OTP for Hostel Voting",
-    text: `Your OTP is: ${otp}. It is valid for 5 minutes.`,
+    text: `Your OTP is : ${otp}.
+    It is valid for 5 minutes.`,
   };
 
   try {
