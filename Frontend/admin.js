@@ -106,7 +106,7 @@ function displayVotes(resultsByPosition) {
                         <strong>${entry.count} Votes</strong>
                     </div>
                     <div class="vote-bar-container">
-                        <div class="vote-bar" style="width: ${percentage}%;"></div>
+                        <div class="vote-bar" style="--vote-bar-width: ${percentage}%;"></div>
                     </div>
                 `;
                 positionContainer.appendChild(voteCard);

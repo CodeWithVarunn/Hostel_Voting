@@ -430,7 +430,17 @@ footer a:hover {
     height: 100%;
     background-color: var(--primary-color);
     border-radius: 5px;
-    transition: width 0.5s ease-in-out;
+    /* Remove the old transition and add the new animation */
+    width: 0; /* Start at 0 width */
+    animation: growBar 1s ease-out forwards;
+}
+
+/* Add this keyframe animation to the bottom of your CSS file */
+@keyframes growBar {
+    to {
+        /* The final width will be set by the inline style */
+        width: var(--vote-bar-width); 
+    }
 }
 
 /* Media Query for larger screens */
@@ -441,4 +451,25 @@ footer a:hover {
     form, .confirmation-container {
         padding: 2.5rem;
     }
+}
+
+/* --- Improved Dropdown Option Styling --- */
+
+/* Basic styling for each option in the list */
+select option {
+    padding: 12px; /* Adds spacing, though support can vary */
+    font-size: 1rem;
+    background: #ffffff; /* Ensures a clean white background */
+    color: var(--text-color);
+}
+
+/* Hover effect for options - provides clear feedback */
+select option:hover {
+    background: var(--primary-color);
+    color: #ffffff;
+}
+
+/* Style for the disabled placeholder (e.g., "-- Select a Candidate --") */
+select option[disabled] {
+    color: #999;
 }
