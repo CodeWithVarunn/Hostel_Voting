@@ -14,19 +14,17 @@
     <main class="main-content">
       <div id="adminLogin" class="admin-login-wrapper">
         <form id="loginForm" class="admin-login-form">
-          <h2>Admin Login</h2>
-          <p class="admin-login-prompt">
-            Enter the password to access the live dashboard.
-          </p>
-          <input
-            type="password"
-            id="adminPassword"
-            placeholder="Password"
-            required
-          />
-          <button type="submit">Login</button>
-          <p id="loginError" class="login-error"></p>
-        </form>
+    <div class="form-icon-container">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="form-icon">
+            <path fill-rule="evenodd" d="M12 1.5a5.25 5.25 0 00-5.25 5.25v3a3 3 0 00-3 3v6.75a3 3 0 003 3h10.5a3 3 0 003-3v-6.75a3 3 0 00-3-3v-3A5.25 5.25 0 0012 1.5zm-3.75 5.25v3h7.5v-3a3.75 3.75 0 10-7.5 0z" clip-rule="evenodd" />
+        </svg>
+    </div>
+    <h2>Admin Access</h2>
+    <p class="admin-login-prompt">Please enter the password to continue.</p>
+    <input type="password" id="adminPassword" placeholder="Password" required>
+    <button type="submit">Login</button>
+    <p id="loginError" class="login-error"></p>
+</form>
       </div>
 
       <div id="adminContent" style="display: none">

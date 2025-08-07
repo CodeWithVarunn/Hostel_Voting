@@ -402,36 +402,47 @@ footer a:hover {
     border-radius: 5px;
     transition: width 0.5s ease-in-out;
 }
-/* --- Improved Admin Login UI --- */
+/* --- Polished Admin Login UI --- */
 
 .admin-login-wrapper {
-    /* This wrapper ensures the form is part of the centered layout */
     width: 100%;
     display: flex;
     justify-content: center;
 }
 
 .admin-login-form {
-    /* Use the general form styles but with a more suitable width */
     max-width: 420px;
     text-align: center;
+    /* Add a subtle border to make the card feel more defined */
+    border: 1px solid var(--border-color);
+}
+
+.form-icon-container {
+    margin-bottom: 1.5rem;
+}
+
+.form-icon {
+    width: 48px;
+    height: 48px;
+    color: var(--primary-color);
+    opacity: 0.8;
 }
 
 .admin-login-form h2 {
-    margin-bottom: 0.5rem;
-    color: var(--primary-color);
+    margin-bottom: 0.75rem;
+    color: var(--text-color); /* Use standard text color for a softer look */
     font-size: 1.8rem;
+    font-weight: 600;
 }
 
 .admin-login-prompt {
     margin-bottom: 2rem;
-    color: #6c757d; /* A secondary, softer text color */
+    color: #6c757d;
     font-size: 1.1rem;
 }
 
-/* Ensure input and button inside this form have proper spacing */
 .admin-login-form input[type="password"] {
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem; /* More space below the input */
     text-align: center;
     font-size: 1.1rem;
 }
@@ -444,5 +455,5 @@ footer a:hover {
     color: #d93025;
     margin-top: 1rem;
     font-weight: bold;
-    min-height: 20px; /* Reserves space to prevent layout shift */
+    min-height: 20px;
 }
