@@ -29,10 +29,9 @@ body {
 
 /* Header */
 header {
-    background-color: var(--background-color); /* CHANGED: Match main background */
+    background-color: var(--background-color);
     padding: 1.25rem 1rem;
     text-align: center;
-    /* REMOVED: border-bottom */
 }
 
 header h1 {
@@ -44,7 +43,8 @@ header h1 {
 main.main-content {
     flex: 1;
     display: flex;
-    justify-content: center;
+    flex-direction: column; /* This stacks the form and feedback vertically */
+    align-items: center;   /* This centers them horizontally */
     padding: 1.5rem;
 }
 
@@ -158,10 +158,16 @@ select {
 
 /* Feedback Message */
 #feedback {
+    width: 100%;
+    max-width: 600px; /* Match the form width */
     text-align: center;
     margin-top: 1rem;
+    padding: 1rem;
     font-weight: bold;
     color: #d93025;
+    background-color: #f8d7da; /* Light red background for errors */
+    border: 1px solid #f5c6cb;
+    border-radius: var(--border-radius);
 }
 
 hr {
@@ -173,13 +179,12 @@ hr {
 
 /* Footer */
 footer {
-    background-color: var(--background-color); /* CHANGED: Match main background */
+    background-color: var(--background-color);
     color: var(--text-color);
     text-align: center;
     padding: 1.25rem 1rem;
     width: 100%;
     margin-top: auto;
-    /* REMOVED: border-top */
 }
 
 footer a {
