@@ -1,243 +1,187 @@
-body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  margin: auto;
-  max-width: 800px;
-  padding: 2em;
-  background-color: #f4f4f9;
-  color: #333;
+/* General Body & Root Styling */
+:root {
+    --primary-color: #0057b7;
+    --primary-dark-color: #003e91;
+    --background-color: #f4f7f6;
+    --form-background: #ffffff;
+    --text-color: #333;
+    --light-gray-color: #ccc;
+    --border-radius: 8px;
+    --box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
 }
 
-h2, h3 {
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Header */
+header {
+    background: var(--primary-color);
+    color: white;
+    padding: 1rem;
     text-align: center;
-    color: #0057b7;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+    font-size: 1.5rem;
+}
+
+/* Main Content & Form */
+.main-content {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    padding: 1.5rem;
 }
 
 form {
-  background-color: white;
-  padding: 30px;
-  border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  max-width: 450px;
-  margin: 2em auto;
+    width: 100%;
+    max-width: 600px;
+    background-color: var(--form-background);
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
 }
 
-input,
-select,
-button {
-  width: 100%;
-  padding: 12px;
-  margin-top: 10px;
-  margin-bottom: 15px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  box-sizing: border-box;
-  font-size: 16px;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Added transition */
-}
-
-/* New style for focused inputs/selects */
-input:focus,
-select:focus {
-    border-color: #0057b7;
-    box-shadow: 0 0 8px rgba(0, 87, 183, 0.2);
-    outline: none;
-}
-
-button {
-  background-color: #0057b7;
-  color: white;
-  cursor: pointer;
-  border: none;
-  font-weight: bold;
-  transition: background-color 0.3s ease, transform 0.2s ease; /* Added transition */
-}
-
-button:hover {
-  background-color: #003e91;
-  transform: translateY(-2px); /* Added subtle lift effect */
-}
-
-#refreshBtn {
-    display: block;
-    width: auto;
-    margin: 20px auto;
-    padding: 10px 25px;
-}
-
-#votesContainer {
-  margin-top: 20px;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 20px;
-}
-
-.vote-card {
-  background-color: white;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-  border-left: 5px solid #0057b7;
-}
-
-.vote-card p {
-    margin: 5px 0;
+.form-section {
+    margin-bottom: 1.5rem;
 }
 
 label {
-    font-weight: bold;
-    margin-top: 10px;
     display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: #555;
 }
 
+input[type="text"],
+input[type="email"],
+select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--light-gray-color);
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+input:focus,
+select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(0, 87, 183, 0.15);
+}
+
+button {
+    width: 100%;
+    padding: 14px;
+    margin-top: 1rem;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: var(--border-radius);
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+button:hover {
+    background-color: var(--primary-dark-color);
+    transform: translateY(-2px);
+}
+
+button:disabled {
+    background-color: #999;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Fieldset and Legend */
+fieldset {
+    border: 1px solid #e0e0e0;
+    border-radius: var(--border-radius);
+    padding: 1.5rem;
+    margin-top: 1.5rem;
+    background-color: #fcfcfc;
+}
+
+legend {
+    font-weight: bold;
+    color: var(--primary-color);
+    padding: 0 0.5rem;
+    margin-left: 0.5rem;
+    font-size: 1.2rem;
+}
+
+select {
+    margin-bottom: 1rem;
+}
+
+/* Instructions Details/Summary */
+.instructions-details {
+    margin: 1.5rem 0;
+    border: 1px solid #e0e0e0;
+    border-radius: var(--border-radius);
+    background-color: #f8f9fa;
+}
+
+.instructions-details summary {
+    padding: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    color: var(--primary-color);
+    outline: none; /* Removes the default focus outline */
+}
+
+.instructions-content {
+    padding: 0 1.5rem 1rem 2.5rem;
+}
+
+.instructions-content ol li {
+    margin-bottom: 0.5rem;
+}
+
+/* Feedback Message */
 #feedback {
     text-align: center;
-    margin-top: 20px;
+    margin-top: 1rem;
     font-weight: bold;
+    color: #d93025;
 }
 
 hr {
     border: 0;
     height: 1px;
-    background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0));
-    margin: 2em 0;
+    background-color: #e0e0e0;
+    margin: 2rem 0;
 }
 
-/* Add these new styles to your existing style.css file */
-
-fieldset {
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 20px;
-    margin-bottom: 25px;
-    background-color: #fafafa;
-}
-
-legend {
-    font-weight: bold;
-    color: #0057b7;
-    padding: 0 10px;
-    margin-left: 10px;
-    font-size: 1.1em;
-}
-
-/* Add these new styles for the confirmation page */
-
-.confirmation-container {
-    background-color: white;
-    padding: 40px;
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    max-width: 500px;
-    margin: 4em auto;
-}
-
-.confirmation-checkmark {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    background-color: #28a745;
-    color: white;
-    font-size: 50px;
-    line-height: 80px;
-    margin: 0 auto 20px auto;
-    text-align: center;
-}
-
-.confirmation-container h2 {
-    color: #333;
-    margin-bottom: 10px;
-}
-
-.confirmation-container p {
-    color: #555;
-    font-size: 1.1em;
-    line-height: 1.6;
-}
-
-.button-link {
-    display: inline-block;
-    background-color: #0057b7;
-    color: white;
-    padding: 12px 25px;
-    text-decoration: none;
-    border-radius: 8px;
-    font-weight: bold;
-    margin-top: 25px;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-.button-link:hover {
-    background-color: #003e91;
-    transform: translateY(-2px);
-}
-
-/* Add these new styles for the admin login */
-
-.admin-login-container {
-    max-width: 400px;
-    margin: 4em auto;
-}
-
-.login-error {
-    color: #d93025;
-    text-align: center;
-    margin-top: 10px;
-    font-weight: bold;
-    min-height: 20px;
-}
-
-.position-container {
-    background-color: #fdfdfd;
-    padding: 15px;
-    border-radius: 8px;
-    margin-bottom: 20px;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
-}
-
-.position-container h3 {
-    margin-top: 0;
-    border-bottom: 2px solid #eee;
-    padding-bottom: 10px;
-    margin-bottom: 15px;
-}
-
-/* --- Add these new styles to your style.css --- */
-
-/* Instructions Styling */
-.instructions {
-    background-color: #f8f9fa;
-    border-left: 4px solid #17a2b8; /* A nice info blue */
-    margin: 25px 0;
-    padding: 15px 20px;
-    border-radius: 8px;
-}
-
-.instructions h2 {
-    margin-top: 0;
-    color: #343a40;
-}
-
-.instructions ol {
-    padding-left: 20px;
-    margin-bottom: 10px; /* Add space below the list */
-}
-
-.instructions li {
-    margin-bottom: 8px; /* Space out the list items */
-}
-
-/* Footer Styling */
+/* Footer */
 footer {
+    background-color: #343a40;
+    color: #f8f9fa;
     text-align: center;
-    padding: 20px;
-    margin-top: 40px; /* Pushes footer down */
-    background-color: #343a40; /* Dark footer */
-    color: #f8f9fa; /* Light text */
+    padding: 1.25rem 1rem; /* 20px padding */
+    width: 100%;
+    margin-top: auto; /* Pushes the footer to the bottom */
 }
 
 footer a {
-    color: #17a2b8; /* Matching info blue for the link */
+    color: #17a2b8;
     text-decoration: none;
     font-weight: 600;
 }
@@ -246,13 +190,12 @@ footer a:hover {
     text-decoration: underline;
 }
 
-/* Make body take full height to push footer down */
-body {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-}
-
-.container {
-    flex: 1; /* Allows the main content to grow and push the footer */
+/* Media Query for larger screens */
+@media (min-width: 768px) {
+    header h1 {
+        font-size: 2rem;
+    }
+    form {
+        padding: 2.5rem;
+    }
 }
