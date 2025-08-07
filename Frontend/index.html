@@ -1,5 +1,3 @@
-<!-- Index.html -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,7 +6,21 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
   <h2>Hostel Committee Voting</h2>
+
+  <div class="instructions">
+      <h3>Voting Instructions</h3>
+      <ol>
+          <li>Fill in your Full Name, DTU Email ID, and Hostel Room Number.</li>
+          <li>Click the <strong>"Send OTP"</strong> button to receive a verification code at your email address.</li>
+          <li>Enter the received OTP to unlock the voting ballot.</li>
+          <li>Select your preferred candidate for each committee position.</li>
+          <li>Once you have made all your selections, click <strong>"Submit Vote"</strong>.</li>
+      </ol>
+      <p><strong>Note:</strong> Each student is allowed to vote only once.</p>
+  </div>
+
   <form id="voteForm">
     <input type="text" placeholder="Full Name" name="name" required><br><br>
     <input type="email" placeholder="DTU Email ID" name="email" required><br><br>
@@ -104,6 +116,10 @@
   </form>
 
   <div id="feedback"></div>
+
+  <footer>
+      <p>Developed by <a href="https://www.linkedin.com/in/varun-gill-a4b58325a/" target="_blank" rel="noopener noreferrer">Varun Gill</a></p>
+  </footer>
 
   <script src="script.js"></script>
 </body>

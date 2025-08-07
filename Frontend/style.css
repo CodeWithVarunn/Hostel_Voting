@@ -201,3 +201,58 @@ legend {
     padding-bottom: 10px;
     margin-bottom: 15px;
 }
+
+/* --- Add these new styles to your style.css --- */
+
+/* Instructions Styling */
+.instructions {
+    background-color: #f8f9fa;
+    border-left: 4px solid #17a2b8; /* A nice info blue */
+    margin: 25px 0;
+    padding: 15px 20px;
+    border-radius: 8px;
+}
+
+.instructions h2 {
+    margin-top: 0;
+    color: #343a40;
+}
+
+.instructions ol {
+    padding-left: 20px;
+    margin-bottom: 10px; /* Add space below the list */
+}
+
+.instructions li {
+    margin-bottom: 8px; /* Space out the list items */
+}
+
+/* Footer Styling */
+footer {
+    text-align: center;
+    padding: 20px;
+    margin-top: 40px; /* Pushes footer down */
+    background-color: #343a40; /* Dark footer */
+    color: #f8f9fa; /* Light text */
+}
+
+footer a {
+    color: #17a2b8; /* Matching info blue for the link */
+    text-decoration: none;
+    font-weight: 600;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+/* Make body take full height to push footer down */
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.container {
+    flex: 1; /* Allows the main content to grow and push the footer */
+}
