@@ -8,128 +8,127 @@
 </head>
 <body>
 
-    <div class="page-container">
-        <header>
-            <h1>Hostel Committee Voting</h1>
-        </header>
+    <header>
+        <h1>Hostel Committee Voting</h1>
+    </header>
 
-        <main class="main-content">
-            <form id="voteForm">
+    <main class="main-content">
+        <form id="voteForm">
+            <details class="instructions-details" open>
+                <summary>Voting Instructions</summary>
+                <div class="instructions-content">
+                    <ol>
+                        <li>Fill in your personal details below.</li>
+                        <li>Click <strong>"Send OTP"</strong> to get a code on your DTU email.</li>
+                        <li>Enter the OTP to unlock the full voting ballot.</li>
+                        <li>You must select one candidate for **every position** to submit.</li>
+                    </ol>
+                </div>
+            </details>
+
+            <div class="form-section">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+
+                <label for="email">DTU Email ID</label>
+                <input type="email" id="email" name="email" placeholder="e.g., yourname_123@dtu.ac.in" required>
+
+                <label for="room">Hostel Room Number</label>
+                <input type="text" id="room" name="room" placeholder="Enter your room number" required>
+
+                <button type="button" id="sendOtpBtn">Send OTP</button>
+            </div>
+
+            <div id="otpSection" style="display:none;">
+                <hr>
                 <div class="form-section">
-                    <label for="name">Full Name</label>
-                    <input type="text" id="name" name="name" placeholder="Enter your full name" required>
-
-                    <label for="email">DTU Email ID</label>
-                    <input type="email" id="email" name="email" placeholder="e.g., yourname_123@dtu.ac.in" required>
-
-                    <label for="room">Hostel Room Number</label>
-                    <input type="text" id="room" name="room" placeholder="Enter your room number" required>
-
-                    <button type="button" id="sendOtpBtn">Send OTP</button>
+                    <label for="otp">Enter OTP</label>
+                    <input type="text" id="otp" name="otp" placeholder="Check your email for the OTP" required>
                 </div>
 
-                <div id="otpSection" style="display:none;">
-                    <hr>
-                    <div class="form-section">
-                        <label for="otp">Enter OTP</label>
-                        <input type="text" id="otp" name="otp" placeholder="Check your email for the OTP" required>
-                    </div>
-                    
-                    <details class="instructions-details">
-                        <summary>Read Voting Instructions</summary>
-                        <div class="instructions-content">
-                            <ol>
-                                <li>After entering the OTP, the ballot will appear below.</li>
-                                <li>You must select one candidate for **every position**.</li>
-                                <li>Click "Submit Vote" at the very bottom to finalize.</li>
-                            </ol>
-                        </div>
-                    </details>
+                <h3>Cast Your Vote</h3>
+                <fieldset>
+                    <legend>Executive Council</legend>
+                    <label for="president">President</label>
+                    <select name="president" id="president" required>
+                        <option value="" disabled selected>-- Select a Candidate --</option>
+                        <option value="President Candidate A">President Candidate A</option>
+                        <option value="President Candidate B">President Candidate B</option>
+                    </select>
+                    <label for="vice-president">Vice President</label>
+                    <select name="vice-president" id="vice-president" required>
+                        <option value="" disabled selected>-- Select a Candidate --</option>
+                        <option value="VP Candidate A">VP Candidate A</option>
+                        <option value="VP Candidate B">VP Candidate B</option>
+                    </select>
+                    <label for="general-secretary">General Secretary</label>
+                    <select name="general-secretary" id="general-secretary" required>
+                       <option value="" disabled selected>-- Select a Candidate --</option>
+                       <option value="GS Candidate A">GS Candidate A</option>
+                       <option value="GS Candidate B">GS Candidate B</option>
+                    </select>
+                </fieldset>
 
-                    <h3>Cast Your Vote</h3>
-                    <fieldset>
-                        <legend>Executive Council</legend>
-                        <label for="president">President</label>
-                        <select name="president" id="president" required>
-                            <option value="" disabled selected>-- Select a Candidate --</option>
-                            <option value="President Candidate A">President Candidate A</option>
-                            <option value="President Candidate B">President Candidate B</option>
-                        </select>
-                        <label for="vice-president">Vice President</label>
-                        <select name="vice-president" id="vice-president" required>
-                            <option value="" disabled selected>-- Select a Candidate --</option>
-                            <option value="VP Candidate A">VP Candidate A</option>
-                            <option value="VP Candidate B">VP Candidate B</option>
-                        </select>
-                        <label for="general-secretary">General Secretary</label>
-                        <select name="general-secretary" id="general-secretary" required>
-                           <option value="" disabled selected>-- Select a Candidate --</option>
-                           <option value="GS Candidate A">GS Candidate A</option>
-                           <option value="GS Candidate B">GS Candidate B</option>
-                        </select>
-                    </fieldset>
+                <fieldset>
+                     <legend>Secretaries</legend>
+                     <label for="cultural-secretary">Cultural & Soft Skill Secretary</label>
+                     <select name="cultural-secretary" id="cultural-secretary" required>
+                       <option value="" disabled selected>-- Select a Candidate --</option>
+                       <option value="Cultural Candidate A">Cultural Candidate A</option>
+                       <option value="Cultural Candidate B">Cultural Candidate B</option>
+                     </select>
+                     
+                     <label for="mess-secretary">Hostel Mess Secretary</label>
+                     <select name="mess-secretary" id="mess-secretary" required>
+                       <option value="" disabled selected>-- Select a Candidate --</option>
+                       <option value="Mess Candidate A">Mess Candidate A</option>
+                       <option value="Mess Candidate B">Mess Candidate B</option>
+                     </select>
+                     
+                     <label for="sports-secretary">Sports Secretary</label>
+                     <select name="sports-secretary" id="sports-secretary" required>
+                       <option value="" disabled selected>-- Select a Candidate --</option>
+                       <option value="Sports Candidate A">Sports Candidate A</option>
+                       <option value="Sports Candidate B">Sports Candidate B</option>
+                     </select>
 
-                    <fieldset>
-                         <legend>Secretaries</legend>
-                         <label for="cultural-secretary">Cultural & Soft Skill Secretary</label>
-                         <select name="cultural-secretary" id="cultural-secretary" required>
-                           <option value="" disabled selected>-- Select a Candidate --</option>
-                           <option value="Cultural Candidate A">Cultural Candidate A</option>
-                           <option value="Cultural Candidate B">Cultural Candidate B</option>
-                         </select>
-                         
-                         <label for="mess-secretary">Hostel Mess Secretary</label>
-                         <select name="mess-secretary" id="mess-secretary" required>
-                           <option value="" disabled selected>-- Select a Candidate --</option>
-                           <option value="Mess Candidate A">Mess Candidate A</option>
-                           <option value="Mess Candidate B">Mess Candidate B</option>
-                         </select>
-                         
-                         <label for="sports-secretary">Sports Secretary</label>
-                         <select name="sports-secretary" id="sports-secretary" required>
-                           <option value="" disabled selected>-- Select a Candidate --</option>
-                           <option value="Sports Candidate A">Sports Candidate A</option>
-                           <option value="Sports Candidate B">Sports Candidate B</option>
-                         </select>
+                     <label for="academic-secretary">Academic & Career Secretary</label>
+                     <select name="academic-secretary" id="academic-secretary" required>
+                        <option value="" disabled selected>-- Select a Candidate --</option>
+                        <option value="Academic Candidate A">Academic Candidate A</option>
+                        <option value="Academic Candidate B">Academic Candidate B</option>
+                     </select>
 
-                         <label for="academic-secretary">Academic & Career Secretary</label>
-                         <select name="academic-secretary" id="academic-secretary" required>
-                            <option value="" disabled selected>-- Select a Candidate --</option>
-                            <option value="Academic Candidate A">Academic Candidate A</option>
-                            <option value="Academic Candidate B">Academic Candidate B</option>
-                         </select>
+                     <label for="technical-secretary">Technical Events Secretary</label>
+                     <select name="technical-secretary" id="technical-secretary" required>
+                        <option value="" disabled selected>-- Select a Candidate --</option>
+                        <option value="Tech Candidate A">Tech Candidate A</option>
+                        <option value="Tech Candidate B">Tech Candidate B</option>
+                     </select>
 
-                         <label for="technical-secretary">Technical Events Secretary</label>
-                         <select name="technical-secretary" id="technical-secretary" required>
-                            <option value="" disabled selected>-- Select a Candidate --</option>
-                            <option value="Tech Candidate A">Tech Candidate A</option>
-                            <option value="Tech Candidate B">Tech Candidate B</option>
-                         </select>
+                     <label for="environment-secretary">Environment & Sustainability Secretary</label>
+                     <select name="environment-secretary" id="environment-secretary" required>
+                        <option value="" disabled selected>-- Select a Candidate --</option>
+                        <option value="Env. Candidate A">Env. Candidate A</option>
+                        <option value="Env. Candidate B">Env. Candidate B</option>
+                     </select>
 
-                         <label for="environment-secretary">Environment & Sustainability Secretary</label>
-                         <select name="environment-secretary" id="environment-secretary" required>
-                            <option value="" disabled selected>-- Select a Candidate --</option>
-                            <option value="Env. Candidate A">Env. Candidate A</option>
-                            <option value="Env. Candidate B">Env. Candidate B</option>
-                         </select>
+                     <label for="publicity-secretary">Publicity & Communication Secretary</label>
+                     <select name="publicity-secretary" id="publicity-secretary" required>
+                        <option value="" disabled selected>-- Select a Candidate --</option>
+                        <option value="Publicity Candidate A">Publicity Candidate A</option>
+                        <option value="Publicity Candidate B">Publicity Candidate B</option>
+                     </select>
+                </fieldset>
 
-                         <label for="publicity-secretary">Publicity & Communication Secretary</label>
-                         <select name="publicity-secretary" id="publicity-secretary" required>
-                            <option value="" disabled selected>-- Select a Candidate --</option>
-                            <option value="Publicity Candidate A">Publicity Candidate A</option>
-                            <option value="Publicity Candidate B">Publicity Candidate B</option>
-                         </select>
-                    </fieldset>
-
-                    <button type="submit">Submit Vote</button>
-                </div>
-            </form>
-            <div id="feedback"></div>
-        </main>
-    </div>
-
+                <button type="submit">Submit Vote</button>
+            </div>
+        </form>
+        <div id="feedback"></div>
+    </main>
+    
     <footer>
-        <p>Developed by <a href="https://www.linkedin.com/in/varun-gill-a4b58325a/" target="_blank" rel="noopener noreferrer">Varun</a></p>
+        <p>Developed by <a href="https://www.linkedin.com/in/varun-gill-a4b58325a/" target="_blank" rel="noopener noreferrer">Varun Gill</a></p>
     </footer>
 
     <script src="script.js"></script>

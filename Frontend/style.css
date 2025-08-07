@@ -6,6 +6,7 @@
     --form-background: #ffffff;
     --text-color: #333;
     --light-gray-color: #ccc;
+    --border-color: #e0e0e0;
     --border-radius: 8px;
     --box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
 }
@@ -28,19 +29,19 @@ body {
 
 /* Header */
 header {
-    background: var(--primary-color);
-    color: white;
-    padding: 1rem;
+    background-color: var(--form-background); /* White Background */
+    padding: 1.25rem 1rem;
     text-align: center;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid var(--border-color); /* Subtle border */
 }
 
 header h1 {
+    color: var(--primary-color); /* Blue Text */
     font-size: 1.5rem;
 }
 
 /* Main Content & Form */
-.main-content {
+main.main-content {
     flex: 1;
     display: flex;
     justify-content: center;
@@ -112,7 +113,7 @@ button:disabled {
 
 /* Fieldset and Legend */
 fieldset {
-    border: 1px solid #e0e0e0;
+    border: 1px solid var(--border-color);
     border-radius: var(--border-radius);
     padding: 1.5rem;
     margin-top: 1.5rem;
@@ -133,8 +134,8 @@ select {
 
 /* Instructions Details/Summary */
 .instructions-details {
-    margin: 1.5rem 0;
-    border: 1px solid #e0e0e0;
+    margin-bottom: 2rem;
+    border: 1px solid var(--border-color);
     border-radius: var(--border-radius);
     background-color: #f8f9fa;
 }
@@ -144,7 +145,7 @@ select {
     font-weight: 600;
     cursor: pointer;
     color: var(--primary-color);
-    outline: none; /* Removes the default focus outline */
+    outline: none;
 }
 
 .instructions-content {
@@ -166,22 +167,23 @@ select {
 hr {
     border: 0;
     height: 1px;
-    background-color: #e0e0e0;
+    background-color: var(--border-color);
     margin: 2rem 0;
 }
 
 /* Footer */
 footer {
-    background-color: #343a40;
-    color: #f8f9fa;
+    background-color: var(--form-background); /* White Background */
+    color: var(--text-color); /* Dark Text */
     text-align: center;
-    padding: 1.25rem 1rem; /* 20px padding */
+    padding: 1.25rem 1rem;
     width: 100%;
-    margin-top: auto; /* Pushes the footer to the bottom */
+    margin-top: auto;
+    border-top: 1px solid var(--border-color); /* Subtle border */
 }
 
 footer a {
-    color: #17a2b8;
+    color: var(--primary-color); /* Blue Link */
     text-decoration: none;
     font-weight: 600;
 }
