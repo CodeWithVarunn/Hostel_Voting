@@ -5,23 +5,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Admin Dashboard - DTU Voting</title>
     <link rel="stylesheet" href="style.css" />
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
-    <div id="adminLogin" class="admin-login-container">
-        <form id="loginForm">
-            <h2>Admin Login</h2>
-            <input type="password" id="adminPassword" placeholder="Enter Admin Password" required />
-            <button type="submit">Login</button>
-            <p id="loginError" class="login-error"></p>
-        </form>
-    </div>
+    <header>
+        <h1>Admin Dashboard</h1>
+    </header>
 
-    <div id="adminContent" style="display: none;">
-        <h2>All Submitted Votes (Live)</h2>
-        <div id="votesContainer"></div>
-    </div>
+    <main class="main-content">
+        <div id="adminLogin">
+            <form id="loginForm">
+                <h2>Admin Login</h2>
+                <label for="adminPassword" class="sr-only">Admin Password</label>
+                <input type="password" id="adminPassword" placeholder="Enter Admin Password" required />
+                <button type="submit">Login</button>
+                <p id="loginError" class="login-error"></p>
+            </form>
+        </div>
 
+        <div id="adminContent" style="display: none;">
+            <h2>All Submitted Votes (Live)</h2>
+            <div id="votesContainer">
+                </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>Developed by <a href="https://www.linkedin.com/in/varun-gill-a4b58325a/" target="_blank" rel="noopener noreferrer">Varun</a></p>
+    </footer>
+    
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="admin.js"></script>
 </body>
 </html>

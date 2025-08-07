@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
             e.preventDefault();
             const password = document.getElementById('adminPassword').value;
             const loginError = document.getElementById('loginError');
+            loginError.textContent = ''; // Clear previous errors
 
             try {
                 const response = await fetch('/admin-login', {
@@ -49,9 +50,7 @@ async function fetchVotes() {
 
     try {
         const response = await fetch('/admin-votes', {
-            headers: {
-                'Authorization': `Bearer ${authToken}`
-            }
+            headers: { 'Authorization': `Bearer ${authToken}` }
         });
 
         if (!response.ok) {
@@ -62,34 +61,59 @@ async function fetchVotes() {
         await displayVotes(resultsByPosition);
     } catch (error) {
         console.error('Error fetching votes:', error);
-        const votesContainer = document.getElementById('votesContainer');
-        votesContainer.innerHTML = '<p style="color:red;">Failed to fetch votes.</p>';
+        document.getElementById('votesContainer').innerHTML = '<p style="color:red;">Failed to load vote results.</p>';
     }
 }
 
 function displayVotes(resultsByPosition) {
     const votesContainer = document.getElementById('votesContainer');
-    votesContainer.innerHTML = '';
+    votesContainer.innerHTML = ''; 
+
     if (Object.keys(resultsByPosition).length === 0) {
-        votesContainer.innerHTML = '<p>No votes yet.</p>';
+        votesContainer.innerHTML = '<p>No votes have been cast yet.</p>';
         return;
     }
-    for (const position in resultsByPosition) {
-        const positionContainer = document.createElement('div');
-        positionContainer.className = 'position-container';
-        const positionTitle = document.createElement('h3');
-        positionTitle.textContent = position;
-        positionContainer.appendChild(positionTitle);
-        const results = resultsByPosition[position];
-        results.sort((a, b) => b.count - a.count);
-        results.forEach(entry => {
-            const voteCard = document.createElement('div');
-            voteCard.className = 'vote-card';
-            voteCard.innerHTML = `<p><strong>Candidate:</strong> ${entry.candidate}</p><p><strong>Votes:</strong> ${entry.count}</p>`;
-            positionContainer.appendChild(voteCard);
-        });
-        votesContainer.appendChild(positionContainer);
-    }
+
+    // Define the order of positions
+    const positionOrder = [
+        "President", "Vice President", "General Secretary", "Hostel Mess Secretary", "Sports Secretary", 
+        "Cultural and Soft Skill Secretary", "Academic and Career Secretary", "Technical Events Secretary", 
+        "Environment and Sustainability Secretary", "Social Media, Publicity, and Communication Secretary"
+    ];
+
+    positionOrder.forEach(position => {
+        if (resultsByPosition[position]) {
+            const positionContainer = document.createElement('div');
+            positionContainer.className = 'position-container';
+
+            const positionTitle = document.createElement('h3');
+            positionTitle.textContent = position;
+            positionContainer.appendChild(positionTitle);
+
+            const results = resultsByPosition[position];
+            results.sort((a, b) => b.count - a.count); // Sort by vote count
+
+            const totalVotes = results.reduce((sum, current) => sum + current.count, 0);
+
+            results.forEach(entry => {
+                const percentage = totalVotes > 0 ? (entry.count / totalVotes) * 100 : 0;
+                const voteCard = document.createElement('div');
+                voteCard.className = 'vote-card';
+                
+                voteCard.innerHTML = `
+                    <div class="vote-details">
+                        <span>${entry.candidate}</span>
+                        <strong>${entry.count} Votes</strong>
+                    </div>
+                    <div class="vote-bar-container">
+                        <div class="vote-bar" style="width: ${percentage}%;"></div>
+                    </div>
+                `;
+                positionContainer.appendChild(voteCard);
+            });
+            votesContainer.appendChild(positionContainer);
+        }
+    });
 }
 
 function listenForRealtimeVotes() {
