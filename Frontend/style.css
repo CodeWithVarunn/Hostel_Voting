@@ -71,6 +71,7 @@ label {
 
 input[type="text"],
 input[type="email"],
+input[type="password"],
 select {
     width: 100%;
     padding: 12px;
@@ -88,7 +89,7 @@ select:focus {
     box-shadow: 0 0 0 3px rgba(0, 87, 183, 0.15);
 }
 
-/* --- NEW: Custom Dropdown Styling --- */
+/* Custom Dropdown Styling */
 select {
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -265,17 +266,7 @@ footer a:hover {
     transform: translateY(-2px);
 }
 
-/* Media Query for larger screens */
-@media (min-width: 768px) {
-    header h1 {
-        font-size: 2rem;
-    }
-    form, .confirmation-container {
-        padding: 2.5rem;
-    }
-    
-}
-/* --- Custom Modal (Alert) Styling --- */
+/* Custom Modal (Alert) Styling */
 .modal-overlay {
     position: fixed;
     top: 0;
@@ -316,24 +307,67 @@ footer a:hover {
 .modal-content p {
     font-size: 1.1rem;
     margin-bottom: 1.5rem;
-    color: #333; /* Ensure text color is set */
+    color: #333;
 }
 
-/* Style the modal button */
 .modal-content button {
     width: auto;
     min-width: 100px;
     padding: 10px 25px;
-    margin-top: 0; /* Override default margin */
-}
-/* --- Admin Page Styling --- */
-
-/* This makes the #adminLogin container use the main form styling */
-#adminLogin form {
-    margin: 0;
+    margin-top: 0;
 }
 
-/* Styles for the password error message */
+/* --- Admin UI Styling (Consolidated) --- */
+
+/* Wrapper for the login form */
+.admin-login-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+/* The admin login form itself */
+.admin-login-form {
+    max-width: 420px;
+    text-align: center;
+    border: 1px solid var(--border-color);
+}
+
+/* Icon, Headings, and Text for login form */
+.form-icon-container {
+    margin-bottom: 1.5rem;
+}
+
+.form-icon {
+    width: 48px;
+    height: 48px;
+    color: var(--primary-color);
+    opacity: 0.8;
+}
+
+.admin-login-form h2 {
+    margin-bottom: 0.75rem;
+    color: var(--text-color);
+    font-size: 1.8rem;
+    font-weight: 600;
+}
+
+.admin-login-prompt {
+    margin-bottom: 2rem;
+    color: #6c757d;
+    font-size: 1.1rem;
+}
+
+.admin-login-form input[type="password"] {
+    margin-bottom: 1.5rem;
+    text-align: center;
+    font-size: 1.1rem;
+}
+
+.admin-login-form button {
+    margin-top: 0.5rem;
+}
+
 .login-error {
     color: #d93025;
     text-align: center;
@@ -342,14 +376,13 @@ footer a:hover {
     min-height: 20px;
 }
 
-/* Main container for the live results dashboard */
+/* Admin Dashboard Results Page */
 #adminContent {
     width: 100%;
-    max-width: 1200px; /* Wider container for results */
+    max-width: 1200px;
     text-align: center;
 }
 
-/* Grid layout for the positions */
 #votesContainer {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
@@ -358,7 +391,6 @@ footer a:hover {
     text-align: left;
 }
 
-/* The box for each position (e.g., President, VP) */
 .position-container {
     background-color: var(--form-background);
     padding: 1.5rem;
@@ -374,7 +406,7 @@ footer a:hover {
     color: var(--primary-color);
 }
 
-/* A single candidate's result card */
+/* Candidate Vote Cards and Bars */
 .vote-card {
     margin-bottom: 1.25rem;
 }
@@ -386,7 +418,6 @@ footer a:hover {
     margin-bottom: 0.5rem;
 }
 
-/* The background of the visual vote bar */
 .vote-bar-container {
     width: 100%;
     background-color: #e9ecef;
@@ -395,65 +426,19 @@ footer a:hover {
     overflow: hidden;
 }
 
-/* The colored bar showing the percentage */
 .vote-bar {
     height: 100%;
     background-color: var(--primary-color);
     border-radius: 5px;
     transition: width 0.5s ease-in-out;
 }
-/* --- Polished Admin Login UI --- */
 
-.admin-login-wrapper {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-}
-
-.admin-login-form {
-    max-width: 420px;
-    text-align: center;
-    /* Add a subtle border to make the card feel more defined */
-    border: 1px solid var(--border-color);
-}
-
-.form-icon-container {
-    margin-bottom: 1.5rem;
-}
-
-.form-icon {
-    width: 48px;
-    height: 48px;
-    color: var(--primary-color);
-    opacity: 0.8;
-}
-
-.admin-login-form h2 {
-    margin-bottom: 0.75rem;
-    color: var(--text-color); /* Use standard text color for a softer look */
-    font-size: 1.8rem;
-    font-weight: 600;
-}
-
-.admin-login-prompt {
-    margin-bottom: 2rem;
-    color: #6c757d;
-    font-size: 1.1rem;
-}
-
-.admin-login-form input[type="password"] {
-    margin-bottom: 1.5rem; /* More space below the input */
-    text-align: center;
-    font-size: 1.1rem;
-}
-
-.admin-login-form button {
-    margin-top: 0.5rem;
-}
-
-.login-error {
-    color: #d93025;
-    margin-top: 1rem;
-    font-weight: bold;
-    min-height: 20px;
+/* Media Query for larger screens */
+@media (min-width: 768px) {
+    header h1 {
+        font-size: 2rem;
+    }
+    form, .confirmation-container {
+        padding: 2.5rem;
+    }
 }
