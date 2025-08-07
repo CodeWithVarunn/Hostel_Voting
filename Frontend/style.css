@@ -43,8 +43,8 @@ header h1 {
 main.main-content {
     flex: 1;
     display: flex;
-    flex-direction: column; /* This stacks the form and feedback vertically */
-    align-items: center;   /* This centers them horizontally */
+    flex-direction: column;
+    align-items: center;
     padding: 1.5rem;
 }
 
@@ -156,19 +156,26 @@ select {
     margin-bottom: 0.5rem;
 }
 
-/* Feedback Message */
+/* --- CHANGED SECTION --- */
+/* Feedback Message Styling */
 #feedback {
     width: 100%;
-    max-width: 600px; /* Match the form width */
+    max-width: 600px;
     text-align: center;
     margin-top: 1rem;
-    padding: 1rem;
     font-weight: bold;
-    color: #d93025;
-    background-color: #f8d7da; /* Light red background for errors */
-    border: 1px solid #f5c6cb;
     border-radius: var(--border-radius);
+    transition: all 0.3s ease; /* For smooth appearance */
 }
+
+/* This style only applies when the #feedback div is NOT empty */
+#feedback:not(:empty) {
+    padding: 1rem;
+    color: #d93025;
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+}
+/* --- END CHANGED SECTION --- */
 
 hr {
     border: 0;
