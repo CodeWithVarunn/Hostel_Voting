@@ -156,7 +156,6 @@ select {
     margin-bottom: 0.5rem;
 }
 
-/* --- CHANGED SECTION --- */
 /* Feedback Message Styling */
 #feedback {
     width: 100%;
@@ -165,17 +164,15 @@ select {
     margin-top: 1rem;
     font-weight: bold;
     border-radius: var(--border-radius);
-    transition: all 0.3s ease; /* For smooth appearance */
+    transition: all 0.3s ease;
 }
 
-/* This style only applies when the #feedback div is NOT empty */
 #feedback:not(:empty) {
     padding: 1rem;
     color: #d93025;
     background-color: #f8d7da;
     border: 1px solid #f5c6cb;
 }
-/* --- END CHANGED SECTION --- */
 
 hr {
     border: 0;
@@ -204,12 +201,66 @@ footer a:hover {
     text-decoration: underline;
 }
 
+
+/* --- ADDED THIS SECTION BACK --- */
+/* Confirmation Page Styling */
+.confirmation-container {
+    width: 100%;
+    max-width: 600px;
+    background-color: var(--form-background);
+    padding: 2.5rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    text-align: center;
+}
+
+.confirmation-checkmark {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background-color: #28a745;
+    color: white;
+    font-size: 40px;
+    line-height: 70px;
+    margin: 0 auto 1.5rem auto;
+}
+
+.confirmation-container h2 {
+    color: var(--text-color);
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+}
+
+.confirmation-container p {
+    color: #555;
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+}
+
+.button-link {
+    display: inline-block;
+    background-color: var(--primary-color);
+    color: white;
+    padding: 12px 25px;
+    text-decoration: none;
+    border-radius: var(--border-radius);
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.button-link:hover {
+    background-color: var(--primary-dark-color);
+    transform: translateY(-2px);
+}
+/* --- END OF ADDED SECTION --- */
+
+
 /* Media Query for larger screens */
 @media (min-width: 768px) {
     header h1 {
         font-size: 2rem;
     }
-    form {
+    form, .confirmation-container {
         padding: 2.5rem;
     }
 }
