@@ -44,7 +44,8 @@ main.main-content {
     flex: 1;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: center;   /* This centers content horizontally */
+    justify-content: center; /* ADDED: This centers content vertically */
     padding: 1.5rem;
 }
 
@@ -201,8 +202,6 @@ footer a:hover {
     text-decoration: underline;
 }
 
-
-/* --- ADDED THIS SECTION BACK --- */
 /* Confirmation Page Styling */
 .confirmation-container {
     width: 100%;
@@ -252,8 +251,6 @@ footer a:hover {
     background-color: var(--primary-dark-color);
     transform: translateY(-2px);
 }
-/* --- END OF ADDED SECTION --- */
-
 
 /* Media Query for larger screens */
 @media (min-width: 768px) {
